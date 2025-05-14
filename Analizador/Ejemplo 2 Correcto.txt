@@ -1,0 +1,6 @@
+while (0) {
+  printf("Adiós");
+}
+while (1) {
+  break;
+}

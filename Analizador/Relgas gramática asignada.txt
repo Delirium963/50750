@@ -1,0 +1,55 @@
+instrucciones:
+	instruccion
+	| instrucciones instrucción
+	;
+
+instruccion: bucle;
+bucle:
+	"while" "(" condition ")" "{" sentencia "}"
+	;
+
+sentencia:
+	salida
+	| salida sentencia
+	| terminar
+	;
+
+salida:
+	"printf" "(" cadena ")" ";"
+	;
+
+terminar:
+	"break" ";"
+
+condicion
+	"0"
+	|"1"
+	;
+
+cadena:
+	"\" "'" caracteres "\" "'"
+	;
+
+caracteres:
+	caracter
+	| caracteres caracter
+	;
+
+caracter:
+	letra
+	| digito
+	| simbolo
+	;
+
+letra:
+	"q" | "w"| "e"| "r"| "t"| "y"| "u"| "i"| "o"| "p"| "a"| "s"| "d"| "f"| "g"| "h"| "j"| "k"| "l"| "ñ"| "z"| "x"| "c"| "v"| "b"| "n"| "m" 
+	| "Q"| "W"| "E"| "R"| "T"| "Y"| "U"| "I"| "O"| "P"| "A"| "S"| "D"| "F"| "G"| "H"| "J"| "K"| "L"| "Ñ"| "Z"| "X"| "C"| "V"| "B"| "N"| "M"
+	;
+
+digito:
+	"0"| "1"| "2"| "3"| "4"| "5"| "6"| "7"| "8"| "9"
+	;
+
+símbolo:
+	"."| ","| "!"| "?"| ":"| ";"| "'"
+	;
