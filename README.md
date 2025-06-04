@@ -1,6 +1,10 @@
 # 50750
 Analizador UTN
 
+# Importante
+  Desde la terminal clonar el repositorio con el comando
+  git clone https://github.com/Delirium963/50750.git
+  
 # Instrucciones de Uso
 Para La utilizacion correcta del analizador se tienen que seguir los siguientes pasos:
   1. abrir la carpeta Analizador en la consola de comandos
