@@ -1,0 +1,4 @@
+if(12){
+    printf("sali por el IF ");
+
+}

@@ -1,0 +1,53 @@
+grammar p;
+//GRAMATICA,SINTAXIS
+prog:instrucciones
+            ;
+instrucciones: instruccion
+            | instrucciones instruccion
+            ;
+instruccion: decision   
+            ;
+decision: IF LPAREN condicion RPAREN LLLAVE NEWLINE? sentencia NEWLINE? RLLAVE (ELSE LLLAVE NEWLINE? sentencia NEWLINE? RLLAVE)?
+        ;
+sentencia: salida 
+        | salida sentencia
+        | terminar
+        ;
+salida: PRINTF LPAREN cadena RPAREN SEMICOLON
+        ;
+terminar: RETURN SEMICOLON
+        ;
+condicion: '0'
+        | '1'
+        ;
+
+cadena:'"' caracteres '"'  //por error, no puedo colocar /
+        ;
+caracteres: caracter
+          | caracteres caracter
+          ;
+caracter: LETRA
+        | DIGITO
+        | SIMBOLO
+        ;
+
+//LEXEMAS
+LETRA:[a-zA-Z];
+DIGITO:[0-9];
+SIMBOLO:'.'
+       |','
+       |'!'
+       |'?'
+       |':'
+       ;
+LPAREN : '(';
+RPAREN : ')';
+LLLAVE: '{';
+RLLAVE: '}';
+WS: [ \t]+ -> skip;
+SEMICOLON:';';
+PRINTF: 'printf';
+IF: 'if';
+ELSE:'else';
+RETURN:'return';
+NEWLINE: '\r'? '\n' -> skip;  

@@ -1,0 +1,6 @@
+if(){
+    printf("sali por el IF ")
+
+}else{   
+    print("hola");
+}
