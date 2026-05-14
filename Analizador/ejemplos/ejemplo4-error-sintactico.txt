@@ -1,0 +1,14 @@
+tablero dashboard_sintaxis {
+    fuente datos tipo csv ruta "data/test.csv";
+    
+    metrica total = suma(cantidad)
+    
+    grafico mi_grafico {
+        tipo = barras
+        usar = total;
+    }
+    
+    filtro precio == "100";
+    
+    alerta si total > "5000" entonces "Alerta" 
+}

@@ -1,0 +1,16 @@
+tablero ventas_dashboard {
+    fuente datos_csv tipo csv ruta "data/ventas.csv";
+    
+    metrica total_ventas = suma(cantidad);
+    metrica promedio_precio = promedio(precio);
+    
+    grafico grafico_barras {
+        tipo = barras;
+        usar = total_ventas;
+    }
+    
+    filtro categoria == "electrónica";
+    filtro precio >= "1000";
+    
+    alerta si total_ventas > "50000" entonces "Se superó el límite de ventas";
+}

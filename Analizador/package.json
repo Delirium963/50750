@@ -1,0 +1,22 @@
+{
+  "name": "analizador-tableros",
+  "version": "1.0.0",
+  "description": "Analizador sintáctico ANTLR4 para gramática de tableros de análisis",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node test.js",
+    "analyze": "node src/index.js"
+  },
+  "keywords": [
+    "antlr4",
+    "parser",
+    "lexer",
+    "sintáctico",
+    "tableros"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "antlr4": "^4.9.3"
+  }
+}

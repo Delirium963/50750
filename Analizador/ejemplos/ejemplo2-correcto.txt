@@ -1,0 +1,24 @@
+tablero reporte_analisis {
+    fuente api_externa tipo api ruta "https://api.ejemplo.com/datos";
+    fuente json_local tipo json ruta "data/config.json";
+    
+    metrica cantidad_registros = contar(id);
+    metrica valor_maximo = maximo(valor);
+    metrica valor_minimo = minimo(valor);
+    
+    grafico lineas_tiempo {
+        tipo = lineas;
+        usar = cantidad_registros;
+    }
+    
+    grafico tabla_datos {
+        tipo = tabla;
+        usar = valor_maximo;
+    }
+    
+    filtro estado == "activo";
+    filtro fecha >= "2026-01-01";
+    
+    alerta si valor_maximo >= "1000" entonces "Valor máximo excedido en el tablero";
+    alerta si cantidad_registros < "100" entonces "Cantidad de registros por debajo del mínimo";
+}
