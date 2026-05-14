@@ -1,36 +1,19 @@
-# Analizador Sintáctico ANTLR4 - Gramática de Tableros
+# Analizador Sintáctico ANTLR4
 
-Analizador sintáctico completo implementado con ANTLR4 que interpreta una gramática EBNF personalizada para tableros de análisis. El analizador realiza análisis léxico, sintáctico y semántico, generando tablas de tokens, árboles de derivación y validación de referencias.
+Este proyecto implementa un analizador sintáctico para una gramática usando ANTLR4 y Node.js.
 
-## Características
+## Instalar desde GitHub
 
-✅ **Análisis Léxico**: Generación de tabla de tokens con lexemas, tipos, líneas y columnas
-✅ **Análisis Sintáctico**: Árbol de derivación en formato ASCII y JSON
-✅ **Análisis Semántico**: Validación de referencias y tabla de símbolos
-✅ **Manejo Robusto de Errores**: Detección de errores léxicos y sintácticos sin interrupciones
-✅ **Recuperación de Errores**: Continúa el análisis incluso después de detectar errores
-✅ **Visualización Clara**: Salida formateada con tablas ASCII y JSON indentado
+git clone https://github.com/Delirium963/50750.git
+cd 50750
+npm install
 
-## Instalación
+## Requisitos
 
-### Requisitos
 - Node.js 12.x o superior
 - NPM 6.x o superior
 
-### Pasos
-
-1. **Instalar dependencias:**
-```bash
-cd "C:\Users\javie\OneDrive\Escritorio\Analizador"
-npm install
-```
-
-2. **Verificar instalación:**
-```bash
-node src/index.js --help
-```
-
-## Uso
+## Ejecución
 
 ### Analizar un archivo
 
@@ -38,166 +21,38 @@ node src/index.js --help
 node src/index.js <ruta-archivo>
 ```
 
-### Ejemplos
+### Ejemplo con un archivo de prueba
 
-**Análisis exitoso (ejemplo correcto):**
 ```bash
 node src/index.js ejemplos/ejemplo1-correcto.txt
 ```
 
-**Análisis con error léxico:**
+### Analizar ejemplos con errores
+
 ```bash
 node src/index.js ejemplos/ejemplo3-error-lexico.txt
-```
-
-**Análisis con error sintáctico:**
-```bash
 node src/index.js ejemplos/ejemplo4-error-sintactico.txt
 ```
 
-### Ejecutar todas las pruebas
+## Scripts disponibles
 
 ```bash
 npm test
+npm run analyze -- ejemplos/ejemplo1-correcto.txt
 ```
 
-O directamente:
-```bash
-node test.js
-```
+## Estructura del repositorio
 
-## Estructura del Proyecto
+- `package.json` – dependencias y scripts
+- `src/index.js` – punto de entrada principal
+- `parser-gen/` – archivos generados por ANTLR4
+- `ejemplos/` – archivos de ejemplo para análisis
+- `README.md` – documentación del proyecto
 
-```
-Analizador/
-├── gramatica/
-│   └── Tablero.g4                    # Gramática ANTLR4
-├── parser-gen/                        # Archivos generados por ANTLR4
-│   ├── TableroLexer.js
-│   ├── TableroParser.js
-│   ├── TableroListener.js
-│   └── TableroVisitor.js
-├── src/
-│   ├── index.js                       # CLI e integrador principal
-│   ├── analizador.js                  # Orquestador de análisis
-│   ├── visitante.js                   # Análisis semántico
-│   ├── errores.js                     # Manejador de errores personalizado
-│   └── utilitarios.js                 # Funciones de visualización
-├── ejemplos/
-│   ├── ejemplo1-correcto.txt          # Dashboard de ventas (sintaxis correcta)
-│   ├── ejemplo2-correcto.txt          # Reporte de análisis (sintaxis correcta)
-│   ├── ejemplo3-error-lexico.txt      # Ejemplo con error léxico
-│   └── ejemplo4-error-sintactico.txt  # Ejemplo con error sintáctico
-├── test.js                            # Script de pruebas automatizado
-├── package.json                       # Dependencias del proyecto
-└── README.md                          # Este archivo
-```
+## Notas
 
-## Gramática Soportada
-
-### Estructura General
-
-```
-programa       ::= "tablero" ID "{" { elemento } "}"
-elemento       ::= fuente | metrica | grafico | filtro | alerta
-```
-
-### Elementos
-
-**Fuente (Data source):**
-```
-fuente ID tipo (csv | api | json) ruta CADENA;
-```
-
-**Métrica (Aggregation):**
-```
-metrica ID = (suma | promedio | maximo | minimo | contar) ( campo );
-```
-
-**Gráfico (Visualization):**
-```
-grafico ID { tipo = (barras | lineas | torta | tabla); usar = ID; }
-```
-
-**Filtro (Data filtering):**
-```
-filtro campo OPERADOR valor;
-```
-- Operadores: `==`, `!=`, `>`, `<`, `>=`, `<=`
-
-**Alerta (Condition alert):**
-```
-alerta si ID OPERADOR valor entonces CADENA;
-```
-
-## Salida del Análisis
-
-El analizador genera la siguiente información:
-
-### 1. Tabla de Lexemas - Tokens
-Tabla ASCII con columnas:
-- **#**: Número de token
-- **LEXEMA**: Texto del token
-- **TIPO**: Tipo de token (palabra clave, identificador, operador, etc.)
-- **LÍNEA**: Número de línea
-- **COLUMNA**: Número de columna
-
-### 2. Árbol de Derivación (ASCII)
-Representación indentada del árbol sintáctico:
-```
-├─ programa
-  ├─ TABLERO
-  ├─ ID
-  ├─ LBRACE
-  ├─ elemento
-  ...
-```
-
-### 3. Árbol de Derivación (JSON)
-Estructura JSON del árbol sintáctico para procesamiento programático:
-```json
-{
-  "tipo": "no_terminal",
-  "nombre": "programa",
-  "hijos": [...]
-}
-```
-
-### 4. Tabla de Símbolos
-Registros de:
-- **Fuentes**: ID, tipo, ruta
-- **Métricas**: ID, función de agregación, campo
-- **Gráficos**: ID, tipo, métrica utilizada
-- **Filtros**: Campo, operador, valor
-- **Alertas**: Métrica, operador, valor, mensaje
-
-### 5. Errores Detectados
-- **Errores Léxicos**: Caracteres no reconocidos (línea, columna, mensaje)
-- **Errores Sintácticos**: Estructura incorrecta (línea, columna, token esperado vs encontrado)
-- **Errores Semánticos**: Referencias no definidas, tipos incompatibles
-
-## Ejemplos de Entrada
-
-### Ejemplo 1: Dashboard de Ventas (Correcto)
-
-```
-tablero ventas_dashboard {
-    fuente datos_csv tipo csv ruta "data/ventas.csv";
-    
-    metrica total_ventas = suma(cantidad);
-    metrica promedio_precio = promedio(precio);
-    
-    grafico grafico_barras {
-        tipo = barras;
-        usar = total_ventas;
-    }
-    
-    filtro categoria == "electrónica";
-    filtro precio >= "1000";
-    
-    alerta si total_ventas > "50000" entonces "Se superó el límite de ventas";
-}
-```
+- Solo debe existir un `README.md` en este proyecto.
+- El comando `git clone` descarga el repositorio remoto a tu equipo y luego puedes instalar dependencias con `npm install`.
 
 **Salida esperada:** ✓ Análisis exitoso sin errores
 
@@ -356,4 +211,3 @@ Generado con ANTLR4 para análisis sintáctico de gramáticas personalizadas.
 ---
 
 **Última actualización**: Mayo 2026
-
